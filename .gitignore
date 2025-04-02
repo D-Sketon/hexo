@@ -10,4 +10,3 @@ pnpm-lock.yaml
 coverage/
 .tmp*
 .vscode
-dist/
