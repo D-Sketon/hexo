@@ -84,6 +84,7 @@ function debounce(func, wait) {
         }, wait);
     };
 }
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 class Hexo extends events_1.EventEmitter {
     constructor(base = process.cwd(), args = {}) {
         super();
@@ -232,7 +233,7 @@ class Hexo extends events_1.EventEmitter {
             // Try to resolve the plugin with the Node.js's built-in require.resolve.
             return require.resolve(name, { paths: [basedir] });
         }
-        catch (err) {
+        catch {
             // There was an error (likely the node_modules is corrupt or from early version of npm),
             // so return a possibly non-existing path that a later part of the resolution process will check.
             return (0, path_1.join)(basedir, 'node_modules', name);

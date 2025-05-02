@@ -26,7 +26,7 @@ function processPost(ctx, file) {
     const { path } = file.params;
     const doc = Post.findOne({ source: file.path });
     const { config } = ctx;
-    const { timezone: timezoneCfg, updated_option, use_slug_as_post_title } = config;
+    const { timezone, updated_option, use_slug_as_post_title } = config;
     let categories, tags;
     if (file.type === 'skip' && doc) {
         return;
@@ -72,16 +72,16 @@ function processPost(ctx, file) {
             data.date = new Date(info.year, parseInt(info.month || info.i_month, 10) - 1, parseInt(info.day || info.i_day, 10));
         }
         if (data.date) {
-            if (timezoneCfg)
-                data.date = (0, common_1.timezone)(data.date, timezoneCfg);
+            if (timezone)
+                data.date = (0, common_1.adjustDateForTimezone)(data.date, timezone);
         }
         else {
             data.date = stats.birthtime;
         }
         data.updated = (0, common_1.toDate)(data.updated);
         if (data.updated) {
-            if (timezoneCfg)
-                data.updated = (0, common_1.timezone)(data.updated, timezoneCfg);
+            if (timezone)
+                data.updated = (0, common_1.adjustDateForTimezone)(data.updated, timezone);
         }
         else if (updated_option === 'date') {
             data.updated = data.date;

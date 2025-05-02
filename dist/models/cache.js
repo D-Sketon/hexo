@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const warehouse_1 = __importDefault(require("warehouse"));
 const bluebird_1 = __importDefault(require("bluebird"));
-module.exports = (ctx) => {
+module.exports = (_ctx) => {
     const Cache = new warehouse_1.default.Schema({
         _id: { type: String, required: true },
         hash: { type: String, default: '' },

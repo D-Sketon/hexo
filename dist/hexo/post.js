@@ -13,6 +13,7 @@ const hexo_fs_1 = require("hexo-fs");
 const hexo_front_matter_1 = require("hexo-front-matter");
 const preservedKeys = ['title', 'slug', 'path', 'layout', 'date', 'content'];
 const rHexoPostRenderEscape = /<hexoPostRenderCodeBlock>([\s\S]+?)<\/hexoPostRenderCodeBlock>/g;
+const rSwigTag = /(\{\{.+?\}\})|(\{#.+?#\})|(\{%.+?%\})/s;
 const rSwigPlaceHolder = /(?:<|&lt;)!--swig\uFFFC(\d+)--(?:>|&gt;)/g;
 const rCodeBlockPlaceHolder = /(?:<|&lt;)!--code\uFFFC(\d+)--(?:>|&gt;)/g;
 const STATE_PLAINTEXT = Symbol('plaintext');
@@ -67,9 +68,6 @@ class PostRenderEscape {
      * @returns string
      */
     escapeAllSwigTags(str) {
-        if (!/(\{\{.+?\}\})|(\{#.+?#\})|(\{%.+?%\})/s.test(str)) {
-            return str;
-        }
         let state = STATE_PLAINTEXT;
         let buffer = '';
         const output = new StringBuilder();
@@ -452,8 +450,12 @@ class Post {
         }).then(() => {
             data.content = cacheObj.escapeCodeBlocks(data.content);
             // Escape all Nunjucks/Swig tags
+            let hasSwigTag = true;
             if (disableNunjucks === false) {
-                data.content = cacheObj.escapeAllSwigTags(data.content);
+                hasSwigTag = rSwigTag.test(data.content);
+                if (hasSwigTag) {
+                    data.content = cacheObj.escapeAllSwigTags(data.content);
+                }
             }
             const options = data.markdown || {};
             if (!config.syntax_highlighter)
@@ -469,9 +471,9 @@ class Post {
                     // Replace cache data with real contents
                     data.content = cacheObj.restoreAllSwigTags(content);
                     // Return content after replace the placeholders
-                    if (disableNunjucks)
+                    if (disableNunjucks || !hasSwigTag)
                         return data.content;
-                    // Render with Nunjucks
+                    // Render with Nunjucks if there are Swig tags
                     return tag.render(data.content, data);
                 }
             }, options);

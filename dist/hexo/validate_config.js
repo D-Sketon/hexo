@@ -13,7 +13,6 @@ module.exports = (ctx) => {
     try {
         // eslint-disable-next-line no-new
         new URL(config.url);
-        // eslint-disable-next-line no-new
         (0, assert_1.default)(new URL(config.url).protocol.startsWith('http'));
     }
     catch {

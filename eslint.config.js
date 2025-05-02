@@ -1,4 +1,5 @@
 const config = require('eslint-config-hexo/ts');
+const { globalIgnores } = require('eslint/config');
 
 module.exports = [
   ...config,
@@ -17,5 +18,6 @@ module.exports = [
         }
       ]
     }
-  }
+  },
+  globalIgnores(['dist/**'])
 ];

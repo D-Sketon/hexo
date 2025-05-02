@@ -7,5 +7,5 @@ export { isTmpFile };
 export { isHiddenFile };
 export { isExcludedFile };
 export declare function toDate(date?: string | number | Date | moment.Moment): Date | undefined | moment.Moment;
-export declare function timezone(date: Date | moment.Moment, timezone: string): Date;
+export declare function adjustDateForTimezone(date: Date | moment.Moment, timezone: string): Date;
 export { isMatch };

@@ -7,7 +7,7 @@ exports.isTmpFile = isTmpFile;
 exports.isHiddenFile = isHiddenFile;
 exports.isExcludedFile = isExcludedFile;
 exports.toDate = toDate;
-exports.timezone = timezone;
+exports.adjustDateForTimezone = adjustDateForTimezone;
 exports.isMatch = isMatch;
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 const micromatch_1 = __importDefault(require("micromatch"));
@@ -42,7 +42,7 @@ function toDate(date) {
         return;
     return date;
 }
-function timezone(date, timezone) {
+function adjustDateForTimezone(date, timezone) {
     if (moment_timezone_1.default.isMoment(date))
         date = date.toDate();
     const offset = date.getTimezoneOffset();
