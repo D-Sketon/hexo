@@ -300,6 +300,8 @@ class Hexo extends events_1.EventEmitter {
         }
         this._watchBox = debounce(() => this._generate({ cache: useCache }), 100);
         return (0, load_database_1.default)(this).then(() => {
+            this._binaryRelationIndex.post_tag.load();
+            this._binaryRelationIndex.post_category.load();
             this.log.info('Start processing');
             return bluebird_1.default.all([
                 this.source.watch(),

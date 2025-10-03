@@ -18,6 +18,8 @@ class BinaryRelationIndex {
         }
     }
     saveHook(data) {
+        if (!data)
+            return;
         const _id = data._id;
         const key = data[this.key];
         const value = data[this.value];
