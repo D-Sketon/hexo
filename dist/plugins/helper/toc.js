@@ -32,7 +32,7 @@ function tocHelper(str, options = {}) {
     for (let i = 0, len = data.length; i < len; i++) {
         const el = data[i];
         const { level, id, text } = el;
-        const href = id ? `#${(0, hexo_util_1.encodeURL)(id)}` : null;
+        const href = id ? `#${encodeURI(id)}` : null;
         if (!el.unnumbered) {
             lastNumber[level - 1]++;
         }

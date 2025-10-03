@@ -87,13 +87,13 @@ function parseArgs(args) {
     // eslint-disable-next-line one-var
     let match, caption = '';
     if ((match = arg.match(rCaptionUrlTitle)) != null) {
-        caption = `<span>${match[1]}</span><a href="${match[2]}">${match[3]}</a>`;
+        caption = (0, hexo_util_1.htmlTag)('span', {}, match[1]) + (0, hexo_util_1.htmlTag)('a', { href: match[2] }, match[3]);
     }
     else if ((match = arg.match(rCaptionUrl)) != null) {
-        caption = `<span>${match[1]}</span><a href="${match[2]}">link</a>`;
+        caption = (0, hexo_util_1.htmlTag)('span', {}, match[1]) + (0, hexo_util_1.htmlTag)('a', { href: match[2] }, 'link');
     }
     else if ((match = arg.match(rCaption)) != null) {
-        caption = `<span>${match[0]}</span>`;
+        caption = (0, hexo_util_1.htmlTag)('span', {}, match[0]);
     }
     return {
         lang,

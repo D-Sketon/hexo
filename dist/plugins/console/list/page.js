@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const picocolors_1 = require("picocolors");
-const text_table_1 = __importDefault(require("text-table"));
+const fast_text_table_1 = __importDefault(require("fast-text-table"));
 const common_1 = require("./common");
 function listPage() {
     const Page = this.model('Page');
@@ -14,7 +14,7 @@ function listPage() {
     // Table header
     const header = ['Date', 'Title', 'Path'].map(str => (0, picocolors_1.underline)(str));
     data.unshift(header);
-    const t = (0, text_table_1.default)(data, {
+    const t = (0, fast_text_table_1.default)(data, {
         stringLength: common_1.stringLength
     });
     console.log(t);
