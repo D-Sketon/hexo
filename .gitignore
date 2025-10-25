@@ -10,4 +10,4 @@ pnpm-lock.yaml
 coverage/
 .tmp*
 .vscode
-dist/
+.tmp-hexo-theme-unit-test/
